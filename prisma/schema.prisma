@@ -15,8 +15,8 @@ model User {
   email     String   @unique
   username  String?
   password  String
-  isMod     Boolean @default(false)
-  isAdmin   Boolean @default(false)
+  isMod     Boolean  @default(false)
+  isAdmin   Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   posts     Post[]
@@ -24,6 +24,7 @@ model User {
 
 model Post {
   id        String    @id @default(uuid())
+  slug      String    @unique
   type      String
   title     String
   text      String

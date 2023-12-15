@@ -1,19 +1,17 @@
 import { createPost } from "@/app/components/actions";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default function CreateNewPost() {
   async function createNewPost(formData: FormData) {
     "use server";
-    try {
-      await createPost(formData);
-    } catch (error) {
-      console.log(error);
-    }
+    await createPost(formData);
+    redirect("/posts");
   }
 
   return (
-    <div className="new-post p-6">
-      <h1 className="text-4xl mb-8">Create new post</h1>
+    <div className="new-post">
+      <h1 className="text-3xl mb-8">Create new post</h1>
 
       <form action={createNewPost} className="form-control gap-4">
         <input

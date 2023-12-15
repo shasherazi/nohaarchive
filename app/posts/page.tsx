@@ -10,19 +10,21 @@ export default async function Posts() {
   }
 
   return (
-    <div className="posts p-6">
-      <h1 className="text-4xl mb-8">All posts</h1>
+    <div className="posts">
+      <h1 className="text-3xl mb-8">All posts</h1>
 
-      <ul className="list-none list-inside mb-8">
+      <ul className="list-none list-inside mb-8 flex flex-col gap-4">
         {posts.map((post: any) => (
           <div
             key={post.id}
-            className="border border-gray-300 dark:border-gray-700 py-4 px-6"
+            className="border border-gray-300 rounded-lg dark:border-gray-700 py-4 px-6"
           >
             <li key={post.id}>
-              <h2 className="text-2xl mb-2">{post.title}</h2>
-              <p>{post.text}</p>
-              <p className="text-right">By {post.author}</p>
+              <Link href={`/posts/${post.slug}`}>
+                <h2 className="text-xl mb-2 underline">{post.title}</h2>
+              </Link>
+              <p className="line-clamp-3 whitespace-pre-line">{post.text}</p>
+              {post.author && <p className="text-right">By {post.author}</p>}
             </li>
           </div>
         ))}
