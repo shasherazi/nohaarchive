@@ -21,7 +21,7 @@ export default async function PendingPosts() {
               className="border border-gray-300 rounded-lg dark:border-gray-700 py-4 px-6"
             >
               <li key={post.id}>
-                <Link href={`/posts/${post.slug}`}>
+                <Link href={`/posts/${post.slug}/edit`}>
                   <h2 className="text-xl mb-2 underline">{post.title}</h2>
                 </Link>
                 <p className="line-clamp-3 whitespace-pre-line">{post.text}</p>

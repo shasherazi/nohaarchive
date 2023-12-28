@@ -3,7 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export default function CreateNewPost() {
-  async function createNewPost(formData: FormData) {
+  async function createPostAction(formData: FormData) {
     "use server";
     await createPost(formData);
     redirect("/posts");
@@ -13,7 +13,7 @@ export default function CreateNewPost() {
     <div className="new-post">
       <h1 className="text-3xl mb-8">Create new post</h1>
 
-      <form action={createNewPost} className="form-control gap-4">
+      <form action={createPostAction} className="form-control gap-4">
         <input
           type="text"
           name="title"

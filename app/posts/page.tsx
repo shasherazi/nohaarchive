@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { getAllPosts } from "../components/actions";
+import { getApprovedPosts } from "../components/actions";
 
 export default async function Posts() {
   let posts;
   try {
-    posts = (await getAllPosts()) as any;
+    posts = (await getApprovedPosts()) as any;
   } catch (error) {
     console.log(error);
   }

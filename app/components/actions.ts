@@ -17,6 +17,23 @@ export const getAllPosts = async () => {
   }
 };
 
+export const getApprovedPosts = async () => {
+  try {
+    const approvedPosts = await prisma.post.findMany({
+      where: {
+        isApproved: true,
+      },
+      include: {
+        user: true,
+      },
+    });
+
+    return approvedPosts;
+  } catch (error) {
+    return { message: `Posts not found. Here is the full error: ${error}` };
+  }
+};
+
 export const getPendingPosts = async () => {
   try {
     const pendingPosts = await prisma.post.findMany({
@@ -80,5 +97,31 @@ export const createPost = async (formData: FormData) => {
     return post;
   } catch (error) {
     return { message: `Post not created. Here is the full error: ${error}` };
+  }
+};
+
+export const updatePost = async (formData: FormData, slug: string) => {
+  const title = formData.get("title") as string;
+  const text = formData.get("content") as string;
+
+  // trim whitespace from beginning and end of string
+  const trimTitle = title.trim();
+  const trimText = text.trim();
+
+  const rawFormData = {
+    title: trimTitle,
+    text: trimText,
+    type: formData.get("category") as string,
+  };
+
+  try {
+    const post = await prisma.post.update({
+      where: { slug },
+      data: rawFormData,
+    });
+
+    return post;
+  } catch (error) {
+    return { message: `Post not updated. Here is the full error: ${error}` };
   }
 };
