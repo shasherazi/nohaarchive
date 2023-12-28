@@ -42,6 +42,9 @@ export default function Navbar() {
               <Link href="/posts">See all posts</Link>
             </li>
             <li onClick={handleClick}>
+              <Link href="/posts/pending">See posts awaiting approval</Link>
+            </li>
+            <li onClick={handleClick}>
               <Link href="/posts/new">Create a new post</Link>
             </li>
           </ul>

@@ -13,7 +13,24 @@ export const getAllPosts = async () => {
 
     return posts;
   } catch (error) {
-    return { message: "Posts not found" };
+    return { message: `Posts not found. Here is the full error: ${error}` };
+  }
+};
+
+export const getPendingPosts = async () => {
+  try {
+    const pendingPosts = await prisma.post.findMany({
+      where: {
+        isApproved: false,
+      },
+      include: {
+        user: true,
+      },
+    });
+
+    return pendingPosts;
+  } catch (error) {
+    return { message: `Posts not found. Here is the full error: ${error}` };
   }
 };
 
@@ -25,7 +42,7 @@ export const getPost = async (slug: string) => {
 
     return post;
   } catch (error) {
-    return { message: "Post not found" };
+    return { message: `Post not found. Here is the full error. ${error}` };
   }
 };
 
@@ -56,12 +73,12 @@ export const createPost = async (formData: FormData) => {
     const post = await prisma.post.create({
       data: {
         ...rawFormData,
-        userId: "7dd61b84-efb5-4c29-9809-4df681cf1140", // TODO: get user id from session
+        userId: "c82d3ac8-16cf-43c5-951f-75b31d93e952", // TODO: get user id from session
       },
     });
 
     return post;
   } catch (error) {
-    return { message: "Post not created. Here is the full error: ", error };
+    return { message: `Post not created. Here is the full error: ${error}` };
   }
 };

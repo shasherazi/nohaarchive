@@ -23,17 +23,18 @@ model User {
 }
 
 model Post {
-  id        String    @id @default(uuid())
-  slug      String    @unique
-  type      String
-  title     String
-  text      String
-  author    String?
-  userId    String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  user      User      @relation(fields: [userId], references: [id])
-  versions  Version[]
+  id         String    @id @default(uuid())
+  slug       String    @unique
+  type       String
+  title      String
+  text       String
+  isApproved Boolean   @default(false)
+  author     String?
+  userId     String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  user       User      @relation(fields: [userId], references: [id])
+  versions   Version[]
 }
 
 model Version {

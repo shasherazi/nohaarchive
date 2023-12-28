@@ -3,7 +3,6 @@ export default data = {
     {
       email: "test@mail.com",
       username: "test",
-      password: "password",
     },
     {
       email: "randomEmail@random.com",
