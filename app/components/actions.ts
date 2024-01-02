@@ -125,3 +125,16 @@ export const updatePost = async (formData: FormData, slug: string) => {
     return { message: `Post not updated. Here is the full error: ${error}` };
   }
 };
+
+export const markAsApproved = async (id: string, isApproved: boolean) => {
+  try {
+    const post = await prisma.post.update({
+      where: { id },
+      data: { isApproved },
+    });
+
+    return post;
+  } catch (error) {
+    return { message: `Post not updated. Here is the full error: ${error}` };
+  }
+};

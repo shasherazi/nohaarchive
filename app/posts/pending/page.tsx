@@ -1,33 +1,35 @@
+import PendingPost from "@/app/components/PendingPost";
 import { getPendingPosts } from "@/app/components/actions";
+import { IPost } from "@/types";
 import Link from "next/link";
 
 export default async function PendingPosts() {
-  let pendingPosts;
+  let pendingPosts: IPost[] = [];
   try {
-    pendingPosts = (await getPendingPosts()) as any;
+    pendingPosts = (await getPendingPosts()) as IPost[];
   } catch (error) {
     console.log(error);
   }
 
   return (
     <div className="pending">
-      <h1 className="text-3xl mb-8">Posts awaiting approval</h1>
+      <h1 className="text-3xl">Posts awaiting approval</h1>
+      <p className="mb-8">
+        Edit or approve the post. You can edit the post to correct any spelling
+        or grammar issues.
+      </p>
 
       <ul className="list-none list-inside mb-8 flex flex-col gap-4">
         {pendingPosts.length ? (
-          pendingPosts.map((post: any) => (
-            <div
-              key={post.id}
-              className="border border-gray-300 rounded-lg dark:border-gray-700 py-4 px-6"
-            >
-              <li key={post.id}>
-                <Link href={`/posts/${post.slug}/edit`}>
-                  <h2 className="text-xl mb-2 underline">{post.title}</h2>
-                </Link>
-                <p className="line-clamp-3 whitespace-pre-line">{post.text}</p>
-                {post.author && <p className="text-right">By {post.author}</p>}
-              </li>
-            </div>
+          pendingPosts.map((post: IPost) => (
+            <li key={post.id}>
+              <PendingPost {...post} />
+              {/* <Link href={`/posts/${post.slug}/edit`}> */}
+              {/*   <h2 className="text-xl mb-2 underline">{post.title}</h2> */}
+              {/* </Link> */}
+              {/* <p className="line-clamp-3 whitespace-pre-line">{post.text}</p> */}
+              {/* {post.author && <p className="text-right">By {post.author}</p>} */}
+            </li>
           ))
         ) : (
           <p className="error">
