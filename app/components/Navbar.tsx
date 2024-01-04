@@ -1,7 +1,11 @@
 "use client";
 import Link from "next/link";
+import { signIn, signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 
 export default function Navbar() {
+  const { data: session } = useSession();
+
   const handleClick = () => {
     const elem = document.activeElement as HTMLElement;
     if (elem) {
@@ -14,6 +18,7 @@ export default function Navbar() {
       <div className="flex-1">
         <a className="btn btn-ghost text-xl">NohaArchive</a>
       </div>
+
       <div className="flex-none">
         <div className="dropdown dropdown-end">
           <div tabIndex={0} role="button" className="m-1 p-0">
@@ -50,6 +55,41 @@ export default function Navbar() {
           </ul>
         </div>
       </div>
+      {session ? (
+        <>
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar"
+            >
+              <div className="pfp w-10 rounded-full relative">
+                <Image
+                  src={
+                    session?.user?.image ||
+                    "https://i.redd.it/7ayjc8s4j2n61.png"
+                  }
+                  alt="Profile picture"
+                  fill={true}
+                  sizes="50px"
+                />
+              </div>
+            </div>
+            <ul
+              tabIndex={0}
+              className="dropdown-content z-[1] menu p-2 shadow bg-neutral rounded-box w-52"
+            >
+              <li onClick={() => signOut()}>
+                <p>Sign out</p>
+              </li>
+            </ul>
+          </div>
+        </>
+      ) : (
+        <button className="btn btn-active btn-accent" onClick={() => signIn()}>
+          Sign In
+        </button>
+      )}
     </div>
   );
 }
