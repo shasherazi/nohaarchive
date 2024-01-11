@@ -80,7 +80,7 @@ export default function Navbar() {
               className="dropdown-content z-[1] menu p-2 shadow bg-neutral rounded-box w-52"
             >
               <li onClick={() => signOut()}>
-                <p>Sign out</p>
+                <p className="link-error">Sign out</p>
               </li>
             </ul>
           </div>
